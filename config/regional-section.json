@@ -1,0 +1,11 @@
+{
+  "_comment": "Optional 'international buyers' block appended to product descriptions. Wrapped in versioned HTML comment markers so it can be found and replaced in place later (product-feedback-fixes.js --skip-images upgrades older versions). Placeholders: {NAME} short product name, {COUNTRIES} rendered country list, {STORE_NAME}.",
+  "enabled": true,
+  "marker": "acme-regional-availability",
+  "version": "regional-v1",
+  "applies_to_tag": "intl-eligible",
+  "insert_before_marker": "<!-- product-disclaimer -->",
+  "countries": ["Germany", "France", "Netherlands", "Spain", "Austria", "Belgium"],
+  "retail_html": "<h2>International Customers</h2>\n<p>{NAME} is available to customers outside the United States. Prices shown on this page apply to US domestic orders; international pricing and shipping are quoted directly. <a href=\"/pages/contact\">Contact us</a> and our team will respond within one business day.</p>\n<p>Ships to: {COUNTRIES} and other markets on request.</p>",
+  "wholesale_html": "<h2>International Wholesale: Availability &amp; Pricing</h2>\n<p>{STORE_NAME} supplies {NAME} to wholesale buyers outside the United States. Listed prices apply to US domestic orders; international wholesale pricing depends on destination, volume and documentation. Request a quote and our wholesale team will reply within one business day with pricing, minimums and lead times.</p>\n<p>Ships to: {COUNTRIES} and other markets on request.</p>"
+}

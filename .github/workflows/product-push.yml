@@ -1,0 +1,93 @@
+name: Product Push
+
+# Creates Shopify DRAFT products from spec JSONs committed to product-specs/pending/.
+#
+#   1. Add one spec per product to product-specs/pending/ (see product-specs/examples/).
+#   2. Open a PR. Reviewers see exactly what will be listed: titles, prices, copy, FAQs.
+#   3. Merge to main → this workflow runs. Or run it by hand from the Actions tab with
+#      extra args, e.g. "--dry-run --skip-images".
+#   4. Each processed spec is moved to product-specs/done/ and committed back, so the
+#      git log is the record of what was onboarded and when.
+
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: 'Extra args for push-product.js (e.g. --dry-run --skip-images --no-publish)'
+        required: false
+        default: ''
+  push:
+    branches: [main]
+    paths:
+      - 'product-specs/pending/*.json'
+
+permissions:
+  contents: write   # commit the pending/ → done/ move
+
+concurrency:
+  group: product-push
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180   # image generation is sequential, ~5–10 images per product
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm install --omit=dev
+
+      - name: Check for pending specs
+        id: check
+        run: |
+          shopt -s nullglob
+          files=(product-specs/pending/*.json)
+          echo "count=${#files[@]}" >> "$GITHUB_OUTPUT"
+          if [ ${#files[@]} -eq 0 ]; then echo "No pending specs — nothing to do."; fi
+          printf '  %s\n' "${files[@]}"
+
+      - name: Run product listing pipeline
+        if: steps.check.outputs.count != '0'
+        # args are passed through env (not interpolated into the script) to avoid shell injection
+        run: node push-product.js --batch $EXTRA_ARGS
+        env:
+          EXTRA_ARGS:          ${{ inputs.args }}
+          SHOPIFY_ADMIN_TOKEN: ${{ secrets.SHOPIFY_ADMIN_TOKEN }}
+          SHOPIFY_STORE:       ${{ secrets.SHOPIFY_STORE }}
+          GEMINI_API_KEY:      ${{ secrets.GEMINI_API_KEY }}
+          SMTP_HOST:           ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:           ${{ secrets.SMTP_PORT }}
+          SMTP_USER:           ${{ secrets.SMTP_USER }}
+          SMTP_PASS:           ${{ secrets.SMTP_PASS }}
+          NOTIFY_EMAIL:        ${{ secrets.NOTIFY_EMAIL }}
+          STORE_NAME:          ${{ vars.STORE_NAME }}
+          STOREFRONT_URL:      ${{ vars.STOREFRONT_URL }}
+          SHOPIFY_API_VERSION: ${{ vars.SHOPIFY_API_VERSION }}
+          GEMINI_IMAGE_MODEL:  ${{ vars.GEMINI_IMAGE_MODEL }}
+          DEFAULT_INVENTORY:   ${{ vars.DEFAULT_INVENTORY }}
+
+      - name: Commit archived specs
+        if: always() && steps.check.outputs.count != '0'
+        run: |
+          # push-product.js moves each finished spec to product-specs/done/ on disk;
+          # stage that move so failed specs stay in pending/ for a fix-and-retry.
+          git add -A product-specs/
+          if git diff --cached --quiet; then echo "Nothing archived."; exit 0; fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "product-push: archived processed spec(s) $(date -u +%FT%TZ) [skip ci]"
+          git pull --rebase origin main || true
+          git push || echo "::warning::archive push failed — move the specs from pending/ to done/ by hand"
+
+      - name: Upload generated images
+        if: always() && steps.check.outputs.count != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: product-images
+          path: product-images/
+          retention-days: 30
+          if-no-files-found: ignore

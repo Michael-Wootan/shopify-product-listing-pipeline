@@ -1,0 +1,76 @@
+name: Product Feedback Fixes
+
+# Applies the fixes described in product-feedback/feedback-plan.json.
+# Trigger by committing product-feedback/run-trigger.txt (its first line may carry
+# flags, e.g. "--only=handle-a --skip-text"), or run by hand with args.
+
+on:
+  workflow_dispatch:
+    inputs:
+      args:
+        description: 'Extra args (e.g. --dry-run --only=handle-a,handle-b --limit=5 --skip-text)'
+        required: false
+        default: ''
+  push:
+    branches: [main]
+    paths:
+      - 'product-feedback/run-trigger.txt'
+
+permissions:
+  contents: write   # commit last-run-report.json back
+
+concurrency:
+  group: product-feedback-fixes
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm install --omit=dev
+
+      - name: Resolve args
+        id: trigger
+        env:
+          INPUT_ARGS: ${{ inputs.args }}
+        run: |
+          ARGS="$INPUT_ARGS"
+          if [ -z "$ARGS" ] && [ -f product-feedback/run-trigger.txt ]; then
+            # take only the --flags from the first line; drop the free-text note
+            ARGS=$(head -1 product-feedback/run-trigger.txt | grep -oE -- '--[a-z-]+(=[A-Za-z0-9,._-]+)?' | tr '\n' ' ' || true)
+          fi
+          echo "args=$ARGS" >> "$GITHUB_OUTPUT"
+          echo "Running with: $ARGS"
+
+      - name: Run product feedback fixes
+        run: node product-feedback-fixes.js $FIX_ARGS
+        env:
+          FIX_ARGS:            ${{ steps.trigger.outputs.args }}
+          SHOPIFY_ADMIN_TOKEN: ${{ secrets.SHOPIFY_ADMIN_TOKEN }}
+          SHOPIFY_STORE:       ${{ secrets.SHOPIFY_STORE }}
+          GEMINI_API_KEY:      ${{ secrets.GEMINI_API_KEY }}
+          SMTP_HOST:           ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:           ${{ secrets.SMTP_PORT }}
+          SMTP_USER:           ${{ secrets.SMTP_USER }}
+          SMTP_PASS:           ${{ secrets.SMTP_PASS }}
+          NOTIFY_EMAIL:        ${{ secrets.NOTIFY_EMAIL }}
+          STORE_NAME:          ${{ vars.STORE_NAME }}
+          SHOPIFY_API_VERSION: ${{ vars.SHOPIFY_API_VERSION }}
+          GEMINI_IMAGE_MODEL:  ${{ vars.GEMINI_IMAGE_MODEL }}
+
+      - name: Commit run report
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add product-feedback/last-run-report.json || true
+          git diff --cached --quiet || git commit -m "product-feedback: run report $(date -u +%FT%TZ) [skip ci]"
+          git pull --rebase origin main || true
+          git push || true

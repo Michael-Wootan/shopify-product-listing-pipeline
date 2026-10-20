@@ -1,0 +1,38 @@
+{
+  "comment": "SYNTHETIC SAMPLE. Round 2 review notes: the wholesale 'bags' shot for Product A came back with a camera timestamp burned into the corner (text is banned). Replace only that image, anchored to the retail hero. Also merge an accidental '-1' duplicate and add FAQs to one older listing.",
+  "products": [
+    {
+      "handle": "product-a-botanical-blend-wholesale",
+      "archetype": "wholesale-lot",
+      "mode": "replace_match",
+      "delete_match": ["wholesale-bags"],
+      "shot_override": "bags",
+      "count": 1,
+      "hero_first": false,
+      "ref": "handle:product-a-botanical-blend",
+      "grade": "premium",
+      "subject": "Product A dried loose-leaf botanical blend. ABSOLUTELY NO date stamp, timestamp, camera overlay or any text anywhere in the image"
+    },
+    {
+      "handle": "product-b-sample",
+      "archetype": "retail-default",
+      "mode": "keep_first_redo_rest",
+      "count": 4,
+      "ref": "first",
+      "grade": "standard",
+      "subject": "Product B dried botanical blend"
+    }
+  ],
+  "duplicate_pairs": [
+    { "keep": "product-c-sample", "dupe": "product-c-sample-1" }
+  ],
+  "faq_products": [
+    {
+      "handle": "product-b-sample",
+      "faqs": [
+        { "q": "How is Product B tested?", "a": "Every batch is tested by an accredited third-party lab." },
+        { "q": "How long does it keep?", "a": "About 12 months in an airtight container away from light and heat." }
+      ]
+    }
+  ]
+}

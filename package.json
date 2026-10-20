@@ -1,0 +1,18 @@
+{
+  "name": "shopify-product-listing-pipeline",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Git-driven catalog onboarding for Shopify: spec JSON in, reviewed draft products out (AI images, FAQ metaobjects, collections, summary email), plus a feedback-fix loop.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "push": "node push-product.js",
+    "push:batch": "node push-product.js --batch",
+    "push:dry": "node push-product.js --batch --dry-run --skip-images",
+    "fixes": "node product-feedback-fixes.js",
+    "fixes:dry": "node product-feedback-fixes.js --dry-run --skip-images"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "nodemailer": "^8.0.11"
+  }
+}

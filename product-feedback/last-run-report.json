@@ -1,0 +1,11 @@
+{
+  "ranAt": "2026-01-01T00:00:00.000Z",
+  "dryRun": true,
+  "_comment": "SYNTHETIC SAMPLE of the report shape. The workflow overwrites and commits this file on every run.",
+  "images": [
+    "product-a-botanical-blend-wholesale: -1 +1"
+  ],
+  "text": [],
+  "dupes": [],
+  "errors": []
+}

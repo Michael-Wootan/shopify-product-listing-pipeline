@@ -1,0 +1,88 @@
+{
+  "_comment": "SYNTHETIC SAMPLE — not a real product. Retail + wholesale pair using the default 'Size' option and the built-in image archetypes. Copy into product-specs/pending/ to run it.",
+  "product_name": "Product A Botanical Blend",
+  "product_type": "category-a",
+  "product_type_label": "Botanical Blend",
+  "collection_key": "category-a",
+  "sku_base": "acme-product-a",
+  "quality_grade": "premium",
+  "key_attribute": "dried loose-leaf botanical blend",
+  "regional_section": true,
+  "pricing_notes": "Sample prices only. Retail ladder 4 sizes; wholesale steps down at 2 and 5 units.",
+  "internal_links": [
+    { "url": "/blogs/journal/how-our-botanicals-are-sourced", "anchor": "how our botanicals are sourced" },
+    { "url": "/pages/wholesale", "anchor": "wholesale program" }
+  ],
+  "channels": ["retail", "wholesale"],
+
+  "retail": {
+    "product_title": "Product A Botanical Blend — Premium | Lab Tested | 50g – 400g",
+    "seo_title": "Product A Botanical Blend | Premium Loose Leaf | Acme Store",
+    "meta_description": "Product A botanical blend: a premium loose-leaf blend, batch tested by an accredited lab. Four sizes from 50g. Shop now.",
+    "url_handle": "product-a-botanical-blend",
+    "short_description": "Product A is a premium dried botanical blend, batch tested by an accredited third-party lab. Available in four sizes from 50g to 400g.",
+    "full_description": "<p>Product A is a premium loose-leaf blend with a bright, herbal aroma and a smooth finish. Each lot is dried and cured in small batches, then tested by an accredited third-party laboratory before it ships.</p>\n<p>Every order includes a link to the batch certificate of analysis. Read more about <a href='/blogs/journal/how-our-botanicals-are-sourced'>how our botanicals are sourced</a>.</p>",
+    "how_to_use": [
+      "Steep 1–2 teaspoons in 250 ml of hot water for 4–5 minutes.",
+      "Store in an airtight container away from light and heat.",
+      "Check the batch certificate via the link on your packing slip."
+    ],
+    "specs": {
+      "Available Sizes": "50g, 100g, 200g, 400g",
+      "Form": "Dried loose-leaf",
+      "Testing": "Batch certificate from an accredited third-party lab",
+      "Additives": "None"
+    },
+    "sizes": [
+      { "title": "50g",  "price": 10.00, "sku_suffix": "50G",  "weight_grams": 60 },
+      { "title": "100g", "price": 18.00, "sku_suffix": "100G", "weight_grams": 115 },
+      { "title": "200g", "price": 32.00, "sku_suffix": "200G", "weight_grams": 220 },
+      { "title": "400g", "price": 60.00, "sku_suffix": "400G", "weight_grams": 430 }
+    ],
+    "faqs": [
+      { "q": "How is Product A tested?", "a": "Every batch is tested by an accredited third-party lab. The certificate for your batch is linked on the packing slip." },
+      { "q": "How should I store it?", "a": "In an airtight container away from direct light and heat. Stored this way it keeps its aroma for about 12 months." },
+      { "q": "Do you ship internationally?", "a": "Yes, to selected markets. International pricing and shipping are quoted directly; contact us for a quote." }
+    ],
+    "tags": ["product-a", "category-a", "botanical-blend", "lab-tested", "intl-eligible"],
+    "product_schema_json": {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Product A Botanical Blend",
+      "brand": { "@type": "Brand", "name": "Acme Store" },
+      "sku": "acme-product-a",
+      "offers": [
+        { "@type": "Offer", "name": "50g", "priceCurrency": "USD", "price": "10.00", "availability": "https://schema.org/InStock", "url": "https://www.example.com/products/product-a-botanical-blend" }
+      ]
+    }
+  },
+
+  "wholesale": {
+    "product_title": "Product A Botanical Blend — Wholesale Bulk | 1 kg – 5 kg",
+    "seo_title": "Wholesale Product A Botanical Blend | Bulk Supply | Acme Store",
+    "meta_description": "Wholesale Product A botanical blend in 1, 2 and 5 kg lots. Batch-tested, consistent supply for retailers and private label.",
+    "url_handle": "product-a-botanical-blend-wholesale",
+    "short_description": "Product A in wholesale lots of 1, 2 and 5 kg for retailers, cafes and private-label brands, with batch documentation on every order.",
+    "full_description": "<p>The same Product A sold to consumers, packed in sealed bulk bags for resale or private label. Every lot ships with its batch certificate. For volumes above 5 kg, contact the wholesale team for a direct quote.</p>",
+    "how_to_use": [
+      "Retail: portion into your own branded packaging.",
+      "Private label: ask about finished, labeled units under your brand.",
+      "Request a sample before placing a full order."
+    ],
+    "specs": {
+      "Available Sizes": "1 kg, 2 kg, 5 kg",
+      "Packaging": "Sealed moisture-barrier bulk bags",
+      "Documentation": "Batch certificate with every lot"
+    },
+    "sizes": [
+      { "title": "1 kg", "price": 100.00, "sku_suffix": "1KG", "weight_grams": 1050 },
+      { "title": "2 kg", "price": 190.00, "sku_suffix": "2KG", "weight_grams": 2080 },
+      { "title": "5 kg", "price": 450.00, "sku_suffix": "5KG", "weight_grams": 5150 }
+    ],
+    "faqs": [
+      { "q": "What is the minimum wholesale order?", "a": "1 kg. Pricing steps down at 2 kg and 5 kg; larger volumes are quoted directly." },
+      { "q": "Can I get a sample first?", "a": "Yes. Contact the wholesale team and we will arrange a sample before you commit to a full lot." }
+    ],
+    "tags": ["product-a-wholesale", "wholesale", "bulk", "b2b", "intl-eligible"]
+  }
+}

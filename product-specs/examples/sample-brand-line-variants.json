@@ -1,0 +1,65 @@
+{
+  "_comment": "SYNTHETIC SAMPLE — not a real product. Retail-only branded line showing the optional fields: custom vendor, custom options/variants (Flavor), existing CDN photos (image_urls), a hand-written shot list anchored to a reference photo (image_prompts), and per-variant images generated from label artwork (image_ref_url + variant_image_prompt). URLs are placeholders.",
+  "product_name": "Brand Line Wellness Tonic",
+  "vendor": "Brand Line",
+  "product_type": "brand-line",
+  "product_type_label": "Wellness Tonic",
+  "collection_key": "brand-line",
+  "sku_base": "acme-bl-tonic",
+  "quality_grade": "premium",
+  "regional_section": false,
+  "pricing_notes": "Sample MSRP only. Retail is never priced below what stockists charge.",
+  "internal_links": [
+    { "url": "/collections/brand-line", "anchor": "the full Brand Line range" }
+  ],
+  "channels": ["retail"],
+
+  "retail": {
+    "product_title": "Brand Line Wellness Tonic — 30 ml Dropper",
+    "seo_title": "Brand Line Wellness Tonic 30 ml | Acme Store",
+    "meta_description": "Brand Line Wellness Tonic in a 30 ml dropper bottle. Three flavors, vegan, batch tested.",
+    "url_handle": "brand-line-wellness-tonic",
+    "short_description": "A 30 ml botanical tonic in a glass dropper bottle. Three flavors, vegan, batch tested.",
+    "full_description": "<p>Brand Line Wellness Tonic is a botanical extract in a 30 ml glass dropper bottle: thirty measured 1 ml servings. Vegan, non-GMO and tested batch by batch.</p>",
+    "how_to_use": [
+      "Shake well and fill the dropper to the 1 ml line.",
+      "Add to water or take directly.",
+      "Store upright, cool and out of direct light."
+    ],
+    "specs": {
+      "Volume": "30 ml (30 × 1 ml servings)",
+      "Form": "Liquid, glass dropper bottle",
+      "Diet": "Vegan, non-GMO"
+    },
+    "options": [
+      { "name": "Flavor", "values": ["Citrus", "Mint", "Unflavored"] }
+    ],
+    "variants": [
+      { "options": ["Citrus"],     "price": 24.00, "sku_suffix": "CIT", "weight_grams": 95,
+        "image_ref_url": "https://cdn.shopify.com/s/files/0/0000/0000/files/sample-label-citrus.png", "image_ref_mode": "label" },
+      { "options": ["Mint"],       "price": 24.00, "sku_suffix": "MNT", "weight_grams": 95,
+        "image_ref_url": "https://cdn.shopify.com/s/files/0/0000/0000/files/sample-label-mint.png", "image_ref_mode": "label" },
+      { "options": ["Unflavored"], "price": 22.00, "sku_suffix": "UNF", "weight_grams": 95,
+        "image_url": "https://cdn.shopify.com/s/files/0/0000/0000/files/sample-unflavored-photo.jpg" }
+    ],
+    "variant_image_prompt": "A 30 ml amber glass dropper bottle with the {OPTION1} label, standing on a pure white seamless background, soft studio light, sharp focus.",
+    "image_urls": [
+      { "src": "https://cdn.shopify.com/s/files/0/0000/0000/files/sample-tonic-bottle.jpg", "alt": "Brand Line Wellness Tonic — 30 ml bottle" }
+    ],
+    "image_prompts": [
+      {
+        "label": "dropper",
+        "ref_url": "https://cdn.shopify.com/s/files/0/0000/0000/files/sample-tonic-bottle.jpg",
+        "ref_mode": "product",
+        "prompt": "The same 30 ml dropper bottle on a pure white seamless background with its glass dropper held just above the open bottle, a single drop forming at the tip, soft even studio light, no extra text."
+      }
+    ],
+    "faqs": [
+      { "q": "How many servings are in a bottle?", "a": "Thirty 1 ml servings." },
+      { "q": "Is it vegan?", "a": "Yes. It contains no animal-derived ingredients." }
+    ],
+    "tags": ["brand-line", "wellness-tonic", "dropper", "vegan"]
+  },
+
+  "wholesale": null
+}

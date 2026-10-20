@@ -1,0 +1,84 @@
+{
+  "_comment": "Image generation rules shared by push-product.js and product-feedback-fixes.js. Templates support {BASE} (built from the spec), {SUBJECT} (feedback plan), {GRADE} (from 'grades') and {STYLE} (from 'styles'). Archetypes are matched top to bottom; the first whose channel matches and whose 'match' regex hits product_type + product_name wins. Feedback plans pick an archetype by name.",
+
+  "styles": {
+    "studio": "Commercial product photography, professional studio lighting on a clean white or very light neutral studio background, sharp focus, photorealistic, high resolution. Strictly NO text, NO watermarks, NO logos, NO labels, NO branded props. If a hand appears it must wear a blue or black nitrile glove, never a bare hand.",
+    "documentary": "Realistic, unstyled documentary photograph taken with a phone or DSLR inside a working, clean, food-grade production room under ordinary ambient light, natural soft shadows, photorealistic, looks like a real supplier photo. It is NOT a studio set: NO softbox visible in frame, NO decorative props, NO items arranged in neat grids or patterns, NO text, NO watermarks, NO timestamps or camera overlays, NO labels, stickers or branding on anything. Clear unlabeled bulk bags ARE allowed. Every surface must look clean and inspected: stainless steel or white surfaces, spotless floors, NO rust, NO grime, NO stains, NO debris. If a hand appears it must wear a blue or black nitrile glove, never a bare hand."
+  },
+
+  "grades": {
+    "premium":  "premium grade: uniform, carefully finished, vivid natural color",
+    "standard": "standard grade: well-formed, consistent, natural color",
+    "natural":  "natural, minimally processed look with rustic texture and natural color variation"
+  },
+  "default_grade": "premium",
+
+  "reference_prompts": {
+    "product": "The attached photo is the REFERENCE for this exact product. Generate a NEW photo of the IDENTICAL product (same appearance, color, texture and overall look) in a different composition: {PROMPT} The product must be visually consistent with the reference so all listing photos clearly show the same product.",
+    "label": "The attached image is the exact printed LABEL ARTWORK for this product. Reproduce this label faithfully on the package (same layout, colors, wording and logo), applied realistically to the package surface with natural perspective and reflections. Do not redesign it, do not change or add any text. {PROMPT}"
+  },
+
+  "archetypes": [
+    {
+      "name": "bulk-liquid",
+      "channel": "wholesale",
+      "match": "liquid|extract|oil",
+      "style": "studio",
+      "shots": [
+        { "label": "wholesale-drum",     "prompt": "Clean production facility: an open-top 55-gallon stainless or lined steel drum viewed from above at an angle, filled with {BASE}. {STYLE}" },
+        { "label": "wholesale-pail",     "prompt": "Large white HDPE pails of {BASE} on a clean warehouse floor, one open viewed from above showing the liquid surface. {STYLE}" },
+        { "label": "wholesale-pour",     "prompt": "Macro of {BASE} being poured in a slow ribbon off a stainless-steel paddle back into its container. {STYLE}" },
+        { "label": "wholesale-facility", "prompt": "Wide shot of a clean production area with stainless-steel equipment and drums staged for filling. {STYLE}" }
+      ]
+    },
+    {
+      "name": "bulk-dry",
+      "channel": "wholesale",
+      "match": "raw|bulk|milled|powder",
+      "style": "documentary",
+      "shots": [
+        { "label": "wholesale-supersack", "prompt": "Large white bulk FIBC supersacks filled with {BASE} in a warehouse, one open at the top showing the material. {STYLE}" },
+        { "label": "wholesale-macro",     "prompt": "Close-up of {BASE} showing its real, slightly uneven dry texture. {STYLE}" },
+        { "label": "wholesale-pallet",    "prompt": "A forklift moving a pallet of full supersacks of {BASE} inside a distribution warehouse. {STYLE}" }
+      ]
+    },
+    {
+      "name": "wholesale-lot",
+      "channel": "wholesale",
+      "match": "category-a",
+      "style": "documentary",
+      "shots": [
+        { "label": "wholesale-hero",     "prompt": "{BASE}, {GRADE}. One full bulk unit in a clear unlabeled bag, opened at the top and slumped on a clean stainless-steel work table, a loose handful spilled in front. Slightly elevated straight-on angle, plain light wall behind. {STYLE}" },
+        { "label": "wholesale-bags",     "prompt": "{BASE}, {GRADE}. Several sealed clear unlabeled vacuum-packed bulk bags stacked casually on a clean work table in a bright production room. {STYLE}" },
+        { "label": "wholesale-bin",      "prompt": "{BASE}, {GRADE}. Top-down view of a plain food-grade tote filled with product on a work table, overhead room light, nothing arranged. {STYLE}" },
+        { "label": "wholesale-handling", "prompt": "{BASE}, {GRADE}. A blue nitrile-gloved hand lifting a handful of product out of an open bulk bag, shallow depth of field. {STYLE}" },
+        { "label": "wholesale-closeup",  "prompt": "{BASE}, {GRADE}. Close-up of a few pieces resting on the open plastic of a bulk bag, natural room light, no props. {STYLE}" }
+      ]
+    },
+    {
+      "name": "wholesale-default",
+      "channel": "wholesale",
+      "match": ".*",
+      "style": "studio",
+      "shots": [
+        { "label": "wholesale-hero",     "prompt": "{BASE}, {GRADE}. Large quantity of product on a clean brushed stainless-steel table, bulk product photography showing volume and batch consistency. {STYLE}" },
+        { "label": "wholesale-bin",      "prompt": "{BASE}, {GRADE}. Top-down view of a large food-grade tote filled with product, even overhead lighting. {STYLE}" },
+        { "label": "wholesale-closeup",  "prompt": "{BASE}, {GRADE}. Extreme macro close-up showing texture and consistency in sharp focus. {STYLE}" },
+        { "label": "wholesale-handling", "prompt": "{BASE}, {GRADE}. A nitrile-gloved hand lifting a portion of product from the bulk batch, shallow depth of field. {STYLE}" }
+      ]
+    },
+    {
+      "name": "retail-default",
+      "channel": "retail",
+      "match": ".*",
+      "style": "studio",
+      "shots": [
+        { "label": "hero",    "prompt": "{BASE}, {GRADE}. Main hero product photo, pure white seamless background, front-facing, clean edge lighting. {STYLE}" },
+        { "label": "angle",   "prompt": "{BASE}, {GRADE}. Low 45-degree angle view showing depth and texture, soft studio lighting, light-gray background. {STYLE}" },
+        { "label": "closeup", "prompt": "{BASE}, {GRADE}. Extreme macro close-up showing surface texture and quality detail. {STYLE}" },
+        { "label": "group",   "prompt": "{BASE}, {GRADE}. Several units arranged naturally on a white background, soft shadows. {STYLE}" },
+        { "label": "inhand",  "prompt": "{BASE}, {GRADE}. Product held in a blue nitrile-gloved hand showing realistic scale, white studio background. {STYLE}" }
+      ]
+    }
+  ]
+}

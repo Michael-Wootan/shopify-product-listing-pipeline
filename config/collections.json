@@ -1,0 +1,14 @@
+{
+  "_comment": "Maps a spec's collection_key (or product_type) to Shopify collection IDs. Replace the zeros with your store's numeric collection IDs (Admin > Products > Collections, the number at the end of the URL). 'base' IDs are added to every product on that channel.",
+  "base": {
+    "retail":    [100000000001, 100000000002],
+    "wholesale": [100000000003, 100000000002]
+  },
+  "map": {
+    "category-a": { "retail": [100000000011], "wholesale": [100000000012] },
+    "category-b": { "retail": [100000000021], "wholesale": [100000000022] },
+    "category-c": { "retail": [100000000031], "wholesale": [100000000032] },
+    "brand-line": { "retail": [100000000041], "wholesale": [100000000041] }
+  },
+  "fallback": "category-a"
+}
